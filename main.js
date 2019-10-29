@@ -29,42 +29,6 @@ function startGame() {
 
     myscore = new component("15px", "Consolas", "black", gameWidth-100, 25, "text");
     myGameArea.start();
-    // var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    // var source = audioCtx.createBufferSource();
-    // var xhr = new XMLHttpRequest();
-    // xhr.open('GET', 'music.mp3');
-    // xhr.responseType = 'arraybuffer';
-    // xhr.addEventListener('load', function (r) {
-    //     audioCtx.decodeAudioData(
-    //         xhr.response,
-    //         function (buffer) {
-    //             source.buffer = buffer;
-    //             source.connect(audioCtx.destination);
-    //             source.loop = false;
-    //         });
-    //     source.start(0);
-    // });
-    // xhr.send();
-
-    window.addEventListener('load', () => {
-        // noinspection JSUnresolvedVariable
-        let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'music.mp3');
-        xhr.responseType = 'arraybuffer';
-        xhr.addEventListener('load', () => {
-            let playsound = (audioBuffer) => {
-                let source = audioCtx.createBufferSource();
-                source.buffer = audioBuffer;
-                source.connect(audioCtx.destination);
-                source.loop = false;
-                source.start();
-            };
-
-            audioCtx.decodeAudioData(xhr.response).then(playsound);
-        });
-        xhr.send();
-    });
 }
 
 function gamearea(width = 320, height = 180) {
@@ -112,6 +76,26 @@ function gamearea(width = 320, height = 180) {
     }, false);
     this.canvas.addEventListener('touchend', function(event) {
         clearmove();
+    }, false);
+
+    this.canvas.addEventListener('click', function(event) {
+            // noinspection JSUnresolvedVariable
+            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', './music.mp3');
+            xhr.responseType = 'arraybuffer';
+            xhr.addEventListener('load', () => {
+                let playsound = (audioBuffer) => {
+                    let source = audioCtx.createBufferSource();
+                    source.buffer = audioBuffer;
+                    source.connect(audioCtx.destination);
+                    source.loop = false;
+                    source.start();
+                };
+
+                audioCtx.decodeAudioData(xhr.response).then(playsound);
+            });
+            xhr.send();
     }, false);
 
 
