@@ -65,7 +65,7 @@ function gamearea(width = 320, height = 180) {
     this.frameNo = 0;
     this.start = function() {
         myGamePiece.update();
-        this.interval = setInterval(updateGameArea, 15);
+        this.interval = setInterval(updateGameArea, 10);
     }
     this.stop = function() {
         clearInterval(this.interval);
