@@ -4,6 +4,7 @@ var myGameArea;
 var myGamePiece;
 var myObstacles = [];
 var myscore;
+var musicOn = false;
 
 function restartGame() {
     document.getElementById("myfilter").style.display = "none";
@@ -79,6 +80,8 @@ function gamearea(width = 320, height = 180) {
     }, false);
 
     this.canvas.addEventListener('click', function(event) {
+        if (musicOn === false) {
+            musicOn = true;
             // noinspection JSUnresolvedVariable
             let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             let xhr = new XMLHttpRequest();
@@ -96,6 +99,7 @@ function gamearea(width = 320, height = 180) {
                 audioCtx.decodeAudioData(xhr.response).then(playsound);
             });
             xhr.send();
+        }
     }, false);
 
 
