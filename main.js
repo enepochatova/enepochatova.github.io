@@ -6,6 +6,29 @@ var myObstacles = [];
 var myscore;
 var musicOn = false;
 
+window.addEventListener('click', function(event) {
+    if (musicOn === false) {
+        musicOn = true;
+        // noinspection JSUnresolvedVariable
+        let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', './music.mp3');
+        xhr.responseType = 'arraybuffer';
+        xhr.addEventListener('load', () => {
+            let playsound = (audioBuffer) => {
+                let source = audioCtx.createBufferSource();
+                source.buffer = audioBuffer;
+                source.connect(audioCtx.destination);
+                source.loop = false;
+                source.start();
+            };
+
+            audioCtx.decodeAudioData(xhr.response).then(playsound);
+        });
+        xhr.send();
+    }
+}, false);
+
 function restartGame() {
     document.getElementById("myfilter").style.display = "none";
     document.getElementById("myrestartbutton").style.display = "none";
@@ -77,29 +100,6 @@ function gamearea(width = 320, height = 180) {
     }, false);
     this.canvas.addEventListener('touchend', function(event) {
         clearmove();
-    }, false);
-
-    this.canvas.addEventListener('click', function(event) {
-        if (musicOn === false) {
-            musicOn = true;
-            // noinspection JSUnresolvedVariable
-            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', './music.mp3');
-            xhr.responseType = 'arraybuffer';
-            xhr.addEventListener('load', () => {
-                let playsound = (audioBuffer) => {
-                    let source = audioCtx.createBufferSource();
-                    source.buffer = audioBuffer;
-                    source.connect(audioCtx.destination);
-                    source.loop = false;
-                    source.start();
-                };
-
-                audioCtx.decodeAudioData(xhr.response).then(playsound);
-            });
-            xhr.send();
-        }
     }, false);
 
 
