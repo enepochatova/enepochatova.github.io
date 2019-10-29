@@ -20,7 +20,6 @@ function restartGame() {
 }
 
 function startGame() {
-    musicOn = false;
     let gameWidth = ((window.innerWidth > 0) ? window.innerWidth : screen.width) - 20;
     let gameHeight = ((window.innerHeight > 0) ? window.innerHeight : screen.height) - 20;
     myGameArea = new gamearea(gameWidth, gameHeight);
