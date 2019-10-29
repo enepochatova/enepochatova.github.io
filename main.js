@@ -190,11 +190,11 @@ function updateGameArea() {
         myGameArea.clear();
         myGameArea.frameNo += 1;
         myscore.score +=1;
-        if (myGameArea.frameNo == 1 || everyinterval(210)) {
+        if (myGameArea.frameNo == 1 || everyinterval(200)) {
             x = myGameArea.canvas.width;
             y = myGameArea.canvas.height;
 
-            minGap = myGamePiece.width + 30;
+            minGap = myGamePiece.width + 20;
             maxGap = myGamePiece.width * 2;
             gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
 
